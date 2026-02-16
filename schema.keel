@@ -5,7 +5,7 @@ model User {
         firstName Text?
         lastName Text?
         //team Team
-        isAdmin Boolean? @default(false)
+        //isAdmin Boolean? @default(false)
         //identity Identity @unique
         //identity2 Identity @unique
     }
