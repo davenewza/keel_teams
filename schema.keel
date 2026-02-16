@@ -1,6 +1,6 @@
 model User {
     fields {
-        employeeCode Text @unique
+        employeeCode Text? @unique
         name Text? @computed(user.firstName + " " + user.lastName)
         firstName Text?
         lastName Text?
