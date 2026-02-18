@@ -16,7 +16,7 @@ extend model User {
         get getUser(id)
         list listUsers()
     }
-    
+
     @permission(
         expression: ctx.isAuthenticated,
         actions: [get, create, update, list]
@@ -43,10 +43,11 @@ team Outbound {
 model Order {
     fields {
         orderNumber Text @unique
-        status OrderStatus
+        status OrderStatus @default(OrderStatus.New)
     }
 
     actions {
+        create createOrder() with (orderNumber) 
         get getOrder(id) {
             @permission(expression: ctx.isAuthenticated)
         }
