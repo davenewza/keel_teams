@@ -53,8 +53,6 @@ model Order {
         }
     }
 }
-
-
 enum OrderStatus {
     New
     Paid
@@ -78,3 +76,5 @@ team Outbound {
         Dispatching
     }
 }
+
+team Thing {}
