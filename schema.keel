@@ -4,44 +4,24 @@ extend model User {
         name Text? @computed(user.firstName + " " + user.lastName)
         firstName Text?
         lastName Text?
-        //team Team?
         isAdmin Boolean? @default(false)
-        //identity Identity @unique
-        //identity2 Identity @unique
+
     }
 
     actions {
         create newUser() with (employeeCode, firstName, lastName) //{
-          //  @set(user.identity = ctx.identity)
-            // @set(user.identity2 = ctx.identity)
-       // }
         update updateUserAsAdmin(id) {
             @set(user.isAdmin = true)
         }
         get getUser(id)
         list listUsers()
     }
+    
     @permission(
         expression: ctx.isAuthenticated,
         actions: [get, create, update, list]
     )
 }
-
-// model Team {
-//     fields {
-//         name Text
-//     }
-//     actions {
-//         create createTeam() with (name)
-//         get getTeam(id)
-//         list listTeams()
-//     }
-//     @permission(
-//         expression: ctx.isAuthenticated,
-//         actions: [get, create, update, list]
-//     )
-// }
-
 
 role Picking {}
 role Dispatching {}
