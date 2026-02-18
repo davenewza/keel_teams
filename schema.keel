@@ -42,17 +42,22 @@ extend model User {
 //     )
 // }
 
-team Procurement {
+
+role Picking {}
+role Dispatching {}
+role PaymentReceivables {}
+
+team Accounts {
+    roles {
+        PaymentReceivables
+    }
+}
+
+team Outbound {
     roles {
         Picking
         Dispatching
     }
-}
-
-role Picking {
-}
-
-role Dispatching {
 }
 
 model Order {
@@ -62,12 +67,30 @@ model Order {
     }
 
     actions {
-        update updateOrderToPicked(id)
+        get getOrder(id) {
+            @permission(expression: ctx.isAuthenticated)
+        }
+        list listOrders() {
+            @permission(expression: ctx.isAuthenticated)
+        }
+        update updateOrderToPaid(id) {
+            @set(order.status = OrderStatus.Paid)
+            @permission(roles: [PaymentReceivables])
+        }
+        update pickOrder(id) {
+            @set(order.status = OrderStatus.Picked)
+            @permission(roles: [Picking])
+        }
+        update dispatchOrder(id) {
+            @set(order.status = OrderStatus.Dispatched) 
+            @permission(roles: [Dispatching])
+        }
     }
 }
 
 enum OrderStatus {
     New
+    Paid
     Picked
     Dispatched
 }
