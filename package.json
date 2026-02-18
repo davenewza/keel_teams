@@ -1,8 +1,8 @@
 {
   "name": "keel_teams",
   "dependencies": {
-    "@teamkeel/functions-runtime": "^0.440.1",
-    "@teamkeel/testing-runtime": "^0.440.1",
+    "@teamkeel/functions-runtime": "file:../../conductor/workspaces/keel/kinshasa-v1/packages/functions-runtime",
+    "@teamkeel/testing-runtime": "file:../../conductor/workspaces/keel/kinshasa-v1/packages/testing-runtime",
     "kysely": "^0.27.6",
     "node-fetch": "^3.3.2"
   },

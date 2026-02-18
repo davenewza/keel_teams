@@ -1,27 +1,26 @@
-model User {
+extend model User {
     fields {
         employeeCode Text? @unique
         name Text? @computed(user.firstName + " " + user.lastName)
         firstName Text?
         lastName Text?
-        //team Team
-        //isAdmin Boolean? @default(false)
+        //team Team?
+        isAdmin Boolean? @default(false)
         //identity Identity @unique
         //identity2 Identity @unique
     }
 
-    // actions {
-    //     create newUser() with (employeeCode, firstName, lastName) {
-    //         @set(user.identity = ctx.identity)
-    //         // @set(user.identity2 = ctx.identity)
-    //     }
-    //     update updateUserAsAdmin(id) {
-    //         @set(user.isAdmin = true)
-    //     }
-    //     get getUser(id)
-    //     list listUsers()
-    // }
-
+    actions {
+        create newUser() with (employeeCode, firstName, lastName) //{
+          //  @set(user.identity = ctx.identity)
+            // @set(user.identity2 = ctx.identity)
+       // }
+        update updateUserAsAdmin(id) {
+            @set(user.isAdmin = true)
+        }
+        get getUser(id)
+        list listUsers()
+    }
     @permission(
         expression: ctx.isAuthenticated,
         actions: [get, create, update, list]
@@ -32,13 +31,11 @@ model User {
 //     fields {
 //         name Text
 //     }
-
 //     actions {
 //         create createTeam() with (name)
 //         get getTeam(id)
 //         list listTeams()
 //     }
-
 //     @permission(
 //         expression: ctx.isAuthenticated,
 //         actions: [get, create, update, list]
@@ -63,8 +60,9 @@ model Order {
         orderNumber Text @unique
         status OrderStatus
     }
+
     actions {
-        update updateOrderToPicked(id) 
+        update updateOrderToPicked(id)
     }
 }
 
