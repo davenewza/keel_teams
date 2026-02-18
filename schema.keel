@@ -23,23 +23,6 @@ extend model User {
     )
 }
 
-role Picking {}
-role Dispatching {}
-role PaymentReceivables {}
-
-team Accounts {
-    roles {
-        PaymentReceivables
-    }
-}
-
-team Outbound {
-    roles {
-        Picking
-        Dispatching
-    }
-}
-
 model Order {
     fields {
         orderNumber Text @unique
@@ -47,7 +30,9 @@ model Order {
     }
 
     actions {
-        create createOrder() with (orderNumber) 
+        create createOrder() with (orderNumber) {
+            @permission(expression: ctx.isAuthenticated)
+        }
         get getOrder(id) {
             @permission(expression: ctx.isAuthenticated)
         }
@@ -74,4 +59,21 @@ enum OrderStatus {
     Paid
     Picked
     Dispatched
+}
+
+role Picking {}
+role Dispatching {}
+role PaymentReceivables {}
+
+team Accounts {
+    roles {
+        PaymentReceivables
+    }
+}
+
+team Outbound {
+    roles {
+        Picking
+        Dispatching
+    }
 }
