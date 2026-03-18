@@ -14,7 +14,7 @@ extend model User {
             @set(user.isAdmin = true)
         }
         get getUser(id)
-        list listUsers()
+        list listUsers(name)
     }
 
     @permission(
