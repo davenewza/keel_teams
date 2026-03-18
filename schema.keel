@@ -1,15 +1,11 @@
 extend model User {
     fields {
         employeeCode Text? @unique
-        name Text? @computed(user.firstName + " " + user.lastName)
-        firstName Text?
-        lastName Text?
         isAdmin Boolean? @default(false)
-
     }
 
     actions {
-        create newUser() with (employeeCode, firstName, lastName) //{
+        create newUser() with (employeeCode) //{
         update updateUserAsAdmin(id) {
             @set(user.isAdmin = true)
         }
@@ -36,7 +32,7 @@ model Order {
         get getOrder(id) {
             @permission(expression: ctx.isAuthenticated)
         }
-        list listOrders() {
+        list listOrders(orderNumber) {
             @permission(expression: ctx.isAuthenticated)
         }
         update updateOrderToPaid(id) {
