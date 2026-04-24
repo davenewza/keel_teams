@@ -33,7 +33,7 @@ model Order {
             @permission(expression: ctx.isAuthenticated)
         }
         list listOrders(orderNumber) {
-            @permission(roles: [PaymentReceivables, Picking, Dispatching])
+            @permission(roles: [PaymentReceivables])
         }
         update updateOrderToPaid(id) {
             @set(order.status = OrderStatus.Paid)
