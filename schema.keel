@@ -33,7 +33,7 @@ model Order {
             @permission(expression: ctx.isAuthenticated)
         }
         list listOrders(orderNumber) {
-            @permission(roles: [PaymentReceivables])
+            @permission(roles: [ViewOrders, PaymentReceivables])
         }
         update updateOrderToPaid(id) {
             @set(order.status = OrderStatus.Paid)
@@ -56,9 +56,16 @@ enum OrderStatus {
     Dispatched
 }
 
+role ViewOrders {
+    emails {
+        "dave.new@keel.xyz"
+    }
+}
 role Picking {}
 role Dispatching {}
 role PaymentReceivables {}
+
+
 
 team Accounts {
     roles {
