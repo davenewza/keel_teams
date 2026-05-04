@@ -1,20 +1,19 @@
 extend model User {
     fields {
         employeeCode Text? @unique
-        name Text? @computed(user.firstName + " " + user.lastName)
-        firstName Text?
-        lastName Text?
         isAdmin Boolean? @default(false)
 
     }
 
     actions {
-        create newUser() with (employeeCode, firstName, lastName) //{
+        create newUser() with (employeeCode)
         update updateUserAsAdmin(id) {
             @set(user.isAdmin = true)
         }
         get getUser(id)
-        list listUsers()
+        list listUsers() {
+            @permission(roles: [Picking, Dispatching, PaymentReceivables])
+        }
     }
 
     @permission(
@@ -27,17 +26,19 @@ model Order {
     fields {
         orderNumber Text @unique
         status OrderStatus @default(OrderStatus.New)
+        processedBy User?
     }
 
     actions {
         create createOrder() with (orderNumber) {
             @permission(expression: ctx.isAuthenticated)
+            @set(order.processedBy = ctx.identity.user)
         }
         get getOrder(id) {
             @permission(expression: ctx.isAuthenticated)
         }
         list listOrders() {
-            @permission(expression: ctx.isAuthenticated)
+            @permission(roles: [Picking, Dispatching, PaymentReceivables])
         }
         update updateOrderToPaid(id) {
             @set(order.status = OrderStatus.Paid)
@@ -53,6 +54,9 @@ model Order {
         }
     }
 }
+
+
+
 enum OrderStatus {
     New
     Paid
