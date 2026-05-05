@@ -12,7 +12,7 @@ extend model User {
         }
         get getUser(id)
         list listUsers() {
-            @permission(roles: [Picking, Dispatching, PaymentReceivables])
+            @permission(roles: [Dispatching, PaymentReceivables])
         }
     }
 
@@ -26,11 +26,13 @@ model Order {
     fields {
         orderNumber Text @unique
         status OrderStatus @default(OrderStatus.New)
-        processedBy User?
+        processedBy User
+        items OrderItem[]
+        total Decimal @computed(SUM(order.items.total))
     }
 
     actions {
-        create createOrder() with (orderNumber) {
+        create createOrder() with (orderNumber, items.product.id, items.quantity, items.price) {
             @permission(expression: ctx.isAuthenticated)
             @set(order.processedBy = ctx.identity.user)
         }
@@ -38,7 +40,7 @@ model Order {
             @permission(expression: ctx.isAuthenticated)
         }
         list listOrders() {
-            @permission(roles: [Picking, Dispatching, PaymentReceivables])
+            @permission(roles: [Dispatching, PaymentReceivables])
         }
         update updateOrderToPaid(id) {
             @set(order.status = OrderStatus.Paid)
@@ -46,7 +48,7 @@ model Order {
         }
         update pickOrder(id) {
             @set(order.status = OrderStatus.Picked)
-            @permission(roles: [Picking])
+            @permission(roles: [Dispatching])
         }
         update dispatchOrder(id) {
             @set(order.status = OrderStatus.Dispatched) 
@@ -55,7 +57,66 @@ model Order {
     }
 }
 
+model OrderItem {
+    fields {
+        order Order
+        product Product
+        quantity Number
+        price Decimal
+        total Decimal @computed(orderItem.quantity * orderItem.price)
+    }
+    actions {
+        list listOrderItems(order.id) {
+            @permission(roles: [Dispatching, ProductManagement])
+        }
+    }
+}
 
+model Product {
+    fields {
+        sku Text @unique
+        title Text
+        price Decimal
+        stockIn Number @computed(SUMIF(product.purchases.quantity, product.purchases.status == ProcurementStatus.Received))
+        stockOut Number @computed(SUM(product.purchases.quantity))
+        stockAvailable Number @computed(product.stockIn - product.stockOut)
+        sales OrderItem[]
+        purchases Procurement[]
+    }
+    actions {
+        create createProduct() with (sku, title, price){
+            @permission(roles: [ProductManagement])
+        }
+        get getProduct(id) {
+            @permission(roles: [Dispatching])
+        }
+        list listProducts() {
+            @permission(roles: [Dispatching, ProductManagement])
+        }
+    }
+}
+
+model Procurement {
+    fields {
+        product Product
+        quantity Number
+        status ProcurementStatus @default(ProcurementStatus.Draft)
+    }
+
+    actions {
+        create createProcurement() with (product.id, quantity)
+        get getProcurement(id)
+        list listProcurement(product.id)
+    }
+
+    @permission(roles: [Procurement], actions: [create, get, list])
+}
+
+enum ProcurementStatus {
+    Draft
+    Ordered
+    Received
+}
 
 enum OrderStatus {
     New
@@ -64,9 +125,10 @@ enum OrderStatus {
     Dispatched
 }
 
-role Picking {}
 role Dispatching {}
 role PaymentReceivables {}
+role ProductManagement {}
+role Procurement {}
 
 team Accounts {
     roles {
@@ -76,8 +138,17 @@ team Accounts {
 
 team Outbound {
     roles {
-        Picking
         Dispatching
+        ProductManagement
+    }
+}
+
+team Management {
+    roles {
+        Dispatching
+        PaymentReceivables
+        ProductManagement
+        Procurement
     }
 }
 
