@@ -78,7 +78,7 @@ model Product {
         title Text
         price Decimal
         stockIn Number @computed(SUMIF(product.purchases.quantity, product.purchases.status == ProcurementStatus.Received))
-        stockOut Number @computed(SUM(product.purchases.quantity))
+        stockOut Number @computed(SUM(product.sales.quantity))
         stockAvailable Number @computed(product.stockIn - product.stockOut)
         sales OrderItem[]
         purchases Procurement[]
@@ -107,9 +107,10 @@ model Procurement {
         create createProcurement() with (product.id, quantity)
         get getProcurement(id)
         list listProcurement(product.id)
+        update updateProcurementStatus(id) with (status)
     }
 
-    @permission(roles: [Procurement], actions: [create, get, list])
+    @permission(roles: [Procurement], actions: [create, get, list, update])
 }
 
 enum ProcurementStatus {
