@@ -22,6 +22,14 @@ extend model User {
     )
 }
 
+message Thing1 {
+
+}
+
+message Thing2 {
+
+}
+
 model Order {
     fields {
         orderNumber Text @unique
@@ -32,6 +40,7 @@ model Order {
     }
 
     actions {
+        write myfunc(Thing1) returns (Thing2)
         create createOrder() with (orderNumber, items.product.id, items.quantity, items.price) {
             @permission(expression: ctx.isAuthenticated)
             @set(order.processedBy = ctx.identity.user)
@@ -55,6 +64,8 @@ model Order {
             @permission(roles: [Dispatching])
         }
     }
+    @permission(expression: ctx.isAuthenticated, actions: [create, list, get])
+
 }
 
 model OrderItem {
@@ -70,6 +81,8 @@ model OrderItem {
             @permission(roles: [Dispatching, ProductManagement])
         }
     }
+    @permission(expression: ctx.isAuthenticated, actions: [create, list, get])
+
 }
 
 model Product {
@@ -86,14 +99,19 @@ model Product {
     actions {
         create createProduct() with (sku, title, price){
             @permission(roles: [ProductManagement])
+            
         }
         get getProduct(id) {
+            @permission(expression: ctx.isAuthenticated)
             @permission(roles: [Dispatching])
         }
         list listProducts() {
+            @permission(expression: ctx.isAuthenticated)
             @permission(roles: [Dispatching, ProductManagement])
         }
     }
+
+    @permission(expression: ctx.isAuthenticated, actions: [create, list, get])
 }
 
 model Procurement {
@@ -106,7 +124,7 @@ model Procurement {
     actions {
         create createProcurement() with (product.id, quantity)
         get getProcurement(id)
-        list listProcurement(product.id)
+        list listProcurement(product.id?)
         update updateProcurementStatus(id) with (status)
     }
 

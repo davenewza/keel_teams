@@ -1,0 +1,10 @@
+[
+  {
+    "id": "dashboard_3DwY56A3p4hPvPfs88OeVTEWlol",
+    "name": "orders orders orders",
+    "items": "[{\"id\":\"item-1779194415226-tf2xspk\",\"chartId\":\"chart_3DwXcBA82V7PkG0oUrfXmRJGA80\",\"layout\":{\"i\":\"item-1779194415226-tf2xspk\",\"x\":0,\"y\":0,\"w\":6,\"h\":4,\"minW\":4,\"minH\":3}},{\"id\":\"item-1779194538436-8on6uf1\",\"chartId\":\"chart_3DwYJdwLuk4YY0mHVp123mULX02\",\"layout\":{\"i\":\"item-1779194538436-8on6uf1\",\"x\":0,\"y\":4,\"w\":6,\"h\":4,\"minW\":4,\"minH\":3}}]",
+    "filters": "[{\"id\":\"f_mpcmfd3z5hts\",\"type\":\"date\",\"member\":\"order.created_at\",\"defaultOperator\":\"inDateRange\",\"defaultValue\":[\"2026-05-01\",\"2026-05-31\"]}]",
+    "createdAt": "2026-05-19T12:40:12.519497Z",
+    "updatedAt": "2026-05-19T12:42:20.794905Z"
+  }
+]

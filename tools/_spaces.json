@@ -1,0 +1,24 @@
+[
+  {
+    "id": "space-xvxcvxc",
+    "name": "xvxcvxc",
+    "icon": "language",
+    "display_order": 0,
+    "hidden": false,
+    "actions": [
+      {
+        "id": "action-create-procurement",
+        "link": {
+          "tool_id": "create-procurement",
+          "title": "Create procurement",
+          "display_order": 0
+        },
+        "hidden": false
+      }
+    ],
+    "groups": [],
+    "links": null,
+    "metrics": null,
+    "topics": null
+  }
+]
