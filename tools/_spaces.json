@@ -19,6 +19,14 @@
     "groups": [],
     "links": null,
     "metrics": null,
-    "topics": null
+    "topics": null,
+    "charts": [
+      {
+        "id": "chart-attach-chart-3-dw-y-jdw-luk-4-yy-0-m-h-vp-123-m-ulx-02",
+        "chart_id": "chart_3DwYJdwLuk4YY0mHVp123mULX02",
+        "display_order": 0,
+        "hidden": false
+      }
+    ]
   }
 ]
