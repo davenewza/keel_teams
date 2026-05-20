@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "id": "space-local-space",
+    "name": "LOCAL SPACE",
+    "icon": "umbrella",
+    "display_order": 0,
+    "hidden": false,
+    "actions": [
+      {
+        "id": "action-create-order",
+        "link": {
+          "tool_id": "create-order",
+          "title": "Create order",
+          "display_order": 0
+        },
+        "hidden": false
+      }
+    ],
+    "groups": null,
+    "links": null,
+    "metrics": null,
+    "topics": null,
+    "charts": [
+      {
+        "id": "chart-attach-chart-3-dz-hk-dla-bs-2-f-pl-dr-lp-8-htl-20-ib-3",
+        "chart_id": "chart_3DzHKDlaBs2fPlDrLp8HTL20Ib3",
+        "display_order": 0,
+        "hidden": false
+      },
+      {
+        "id": "chart-attach-chart-3-dz-kf-2-k-kac-h-88-h-17-e-aut-5-z-4-a-x-pg",
+        "chart_id": "chart_3DzKF2kKacH88h17eAUT5Z4aXPg",
+        "display_order": 0,
+        "hidden": false
+      }
+    ]
+  }
+]
