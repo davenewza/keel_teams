@@ -1,9 +1,1 @@
-[
-  {
-    "id": "chart_3DwYJdwLuk4YY0mHVp123mULX02",
-    "name": "emails",
-    "config": "{\"query\":{\"limit\":500,\"dimensions\":[\"user.email\"]},\"settings\":{\"chartType\":\"table\",\"columns\":null,\"columnTitles\":{},\"pageSize\":25,\"pivot\":{}},\"version\":3}",
-    "createdAt": "2026-05-19T12:42:08.817605Z",
-    "updatedAt": "2026-05-19T12:42:08.817605Z"
-  }
-]
+[]
