@@ -1,10 +1,10 @@
 [
   {
     "id": "dashboard_3DzKGI20yQHLr7WiVviLKv7UJDM",
-    "name": "Revenue",
-    "items": "[{\"id\":\"item-1779452045534-yf2wrsx\",\"chartId\":\"chart_3E4y1q6aLcG9TKvE3IxE9w4e1cC\",\"layout\":{\"i\":\"item-1779452045534-yf2wrsx\",\"x\":0,\"y\":0,\"w\":19,\"h\":8,\"minW\":4,\"minH\":3}},{\"id\":\"item-1779452288282-f1qxdlm\",\"chartId\":\"chart_3E4yhuMri7UxCG7ytlk5QybYyca\",\"layout\":{\"i\":\"item-1779452288282-f1qxdlm\",\"x\":0,\"y\":8,\"w\":6,\"h\":8,\"minW\":4,\"minH\":3}}]",
-    "filters": "[{\"id\":\"f_mpe10rwo8n1f\",\"type\":\"text\",\"member\":\"order.status\",\"defaultOperator\":\"equals\"}]",
+    "name": "LOCAL DASH",
+    "items": "[{\"id\":\"item-1779279363252-yc8va18\",\"chartId\":\"chart_3DzKF2kKacH88h17eAUT5Z4aXPg\",\"layout\":{\"i\":\"item-1779279363252-yc8va18\",\"x\":0,\"y\":0,\"w\":6,\"h\":4,\"minW\":4,\"minH\":3}}]",
+    "filters": "[{\"id\":\"f_mpe104cju79o\",\"type\":\"date\",\"member\":\"order.created_at\",\"defaultOperator\":\"inDateRange\",\"defaultValue\":[\"2026-05-01\",\"2026-05-31\"]},{\"id\":\"f_mpe10rwo8n1f\",\"type\":\"text\",\"member\":\"order.status\",\"defaultOperator\":\"equals\",\"defaultValue\":[\"New\"],\"hidden\":true}]",
     "createdAt": "2026-05-20T12:16:00.499393Z",
-    "updatedAt": "2026-05-22T12:18:47.55407Z"
+    "updatedAt": "2026-05-20T12:16:57.82065Z"
   }
 ]
