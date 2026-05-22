@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "id": "chart_3E4y1q6aLcG9TKvE3IxE9w4e1cC",
+    "name": "Revenue by month",
+    "config": "{\"query\":{\"measures\":[\"order.total_sum\"],\"timeDimensions\":[{\"dimension\":\"order.created_at\",\"granularity\":\"month\",\"dateRange\":\"this year\"}],\"limit\":500},\"settings\":{\"chartType\":\"bar\",\"xField\":\"order_created_at_month\",\"yField\":\"order_total_sum\",\"pivotField\":null,\"xAxis\":{\"title\":\"\",\"type\":\"auto\",\"labelAngle\":0,\"labelLimit\":100,\"labelOverlap\":\"parity\",\"labelAlign\":\"center\",\"showDomain\":true,\"showTicks\":true,\"showLabels\":true,\"tickCount\":null,\"format\":\"\"},\"yAxis\":{\"title\":\"\",\"type\":\"auto\",\"scaleType\":\"linear\",\"showDomain\":true,\"showTicks\":true,\"showLabels\":true,\"tickCount\":null,\"format\":\"\",\"zero\":true},\"legend\":{\"show\":true,\"position\":\"right\"},\"mark\":{\"barWidth\":null,\"lineStrokeWidth\":2,\"pointSize\":50},\"behaviors\":{\"showDataLabels\":false,\"showTooltips\":true,\"showGrid\":false,\"stackingMode\":\"stacked\",\"showBarTotals\":false,\"fillMissingValues\":true,\"showPoints\":true},\"facet\":{\"row\":null,\"column\":null},\"arc\":{\"donut\":true}},\"version\":3}",
+    "createdAt": "2026-05-22T12:12:03.51863Z",
+    "updatedAt": "2026-05-22T12:13:59.755528Z"
+  },
+  {
+    "id": "chart_3E4yhuMri7UxCG7ytlk5QybYyca",
+    "name": "Revenue by product",
+    "config": "{\"query\":{\"measures\":[\"order.total_sum\"],\"dimensions\":[\"product.title\"],\"limit\":500},\"settings\":{\"chartType\":\"table\",\"columns\":null,\"columnTitles\":{},\"pageSize\":25,\"pivot\":{\"x\":[\"product.title\"],\"y\":[\"measures\"]}},\"version\":3}",
+    "createdAt": "2026-05-22T12:17:38.33079Z",
+    "updatedAt": "2026-05-22T12:17:56.361751Z"
+  }
+]
