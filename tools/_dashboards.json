@@ -1,10 +1,1 @@
-[
-  {
-    "id": "dashboard_3DzKGI20yQHLr7WiVviLKv7UJDM",
-    "name": "LOCAL DASH",
-    "items": "[{\"id\":\"item-1779279363252-yc8va18\",\"chartId\":\"chart_3DzKF2kKacH88h17eAUT5Z4aXPg\",\"layout\":{\"i\":\"item-1779279363252-yc8va18\",\"x\":0,\"y\":0,\"w\":6,\"h\":4,\"minW\":4,\"minH\":3}}]",
-    "filters": "[{\"id\":\"f_mpe104cju79o\",\"type\":\"date\",\"member\":\"order.created_at\",\"defaultOperator\":\"inDateRange\",\"defaultValue\":[\"2026-05-01\",\"2026-05-31\"]},{\"id\":\"f_mpe10rwo8n1f\",\"type\":\"text\",\"member\":\"order.status\",\"defaultOperator\":\"equals\",\"defaultValue\":[\"New\"],\"hidden\":true}]",
-    "createdAt": "2026-05-20T12:16:00.499393Z",
-    "updatedAt": "2026-05-20T12:16:57.82065Z"
-  }
-]
+[]

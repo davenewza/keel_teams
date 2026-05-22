@@ -32,6 +32,12 @@
         "chart_id": "chart_3DzKF2kKacH88h17eAUT5Z4aXPg",
         "display_order": 0,
         "hidden": false
+      },
+      {
+        "id": "chart-attach-chart-3-e-4-y-1-q-6-a-lc-g-9-t-kv-e-3-ix-e-9-w-4-e-1-c-c",
+        "chart_id": "chart_3E4y1q6aLcG9TKvE3IxE9w4e1cC",
+        "display_order": 0,
+        "hidden": false
       }
     ]
   }
