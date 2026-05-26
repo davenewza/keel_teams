@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "id": "chart_3EG6bffgKcYfYB4bPtuCIZXPkj6",
+    "name": "total sales",
+    "config": "{\"query\":{\"limit\":500,\"dimensions\":[],\"measures\":[\"order.total_sum\"]},\"settings\":{\"chartType\":\"kpi\",\"valueField\":\"order_total_sum\",\"label\":\"\",\"format\":\"\",\"sparkline\":null},\"version\":3}",
+    "createdAt": "2026-05-26T10:50:31.098265Z",
+    "updatedAt": "2026-05-26T10:50:31.098265Z"
+  }
+]

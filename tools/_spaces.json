@@ -38,24 +38,10 @@
         "chart_id": "chart_3E4y1q6aLcG9TKvE3IxE9w4e1cC",
         "display_order": 0,
         "hidden": false
-      }
-    ]
-  },
-  {
-    "id": "space-my-space",
-    "name": "My space",
-    "icon": "language",
-    "display_order": 0,
-    "hidden": false,
-    "actions": null,
-    "groups": null,
-    "links": null,
-    "metrics": null,
-    "topics": null,
-    "charts": [
+      },
       {
-        "id": "chart-attach-chart-3-e-57-ut-plesbx-qe-hu-xzmw-kf-1-d-qrk",
-        "chart_id": "chart_3E57utPlesbxQEHuXzmwKf1DQrk",
+        "id": "chart-attach-chart-3-eg-6-bffg-kc-yf-yb-4-b-ptu-cizx-pkj-6",
+        "chart_id": "chart_3EG6bffgKcYfYB4bPtuCIZXPkj6",
         "display_order": 0,
         "hidden": false
       }

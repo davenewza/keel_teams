@@ -1,18 +1,10 @@
 [
   {
-    "id": "dashboard_3E57xIWiJIfHlg38Q4SrBztNviO",
-    "name": "Revenue charts",
-    "items": "[{\"id\":\"item-1779456825267-0m2q06h\",\"chartId\":\"chart_3E57utPlesbxQEHuXzmwKf1DQrk\",\"layout\":{\"i\":\"item-1779456825267-0m2q06h\",\"x\":0,\"y\":0,\"w\":6,\"h\":4,\"minW\":4,\"minH\":3}}]",
-    "filters": "[{\"id\":\"f_mpgynp3g9hl9\",\"type\":\"text\",\"member\":\"order.status\",\"defaultOperator\":\"equals\"}]",
-    "createdAt": "2026-05-22T13:33:41.427063Z",
-    "updatedAt": "2026-05-22T13:34:03.037558Z"
-  },
-  {
-    "id": "dashboard_3EDIh6HIOwF1JwntHrxDNUST3i5",
-    "name": "empty",
-    "items": "",
+    "id": "dashboard_3EG6QQN0paxBmrcU2nH5cTRyWS2",
+    "name": "LOCAL DASH 2",
+    "items": "[{\"id\":\"item-1779792641925-m3x4n23\",\"chartId\":\"chart_3EG6bffgKcYfYB4bPtuCIZXPkj6\",\"layout\":{\"i\":\"item-1779792641925-m3x4n23\",\"x\":0,\"y\":0,\"w\":6,\"h\":4,\"minW\":4,\"minH\":3}}]",
     "filters": "",
-    "createdAt": "2026-05-25T11:00:29.394297Z",
-    "updatedAt": "2026-05-25T11:00:29.394297Z"
+    "createdAt": "2026-05-26T10:49:02.30649Z",
+    "updatedAt": "2026-05-26T10:50:41.938717Z"
   }
 ]
