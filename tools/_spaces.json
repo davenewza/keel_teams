@@ -40,5 +40,25 @@
         "hidden": false
       }
     ]
+  },
+  {
+    "id": "space-my-space",
+    "name": "My space",
+    "icon": "language",
+    "display_order": 0,
+    "hidden": false,
+    "actions": null,
+    "groups": null,
+    "links": null,
+    "metrics": null,
+    "topics": null,
+    "charts": [
+      {
+        "id": "chart-attach-chart-3-e-57-ut-plesbx-qe-hu-xzmw-kf-1-d-qrk",
+        "chart_id": "chart_3E57utPlesbxQEHuXzmwKf1DQrk",
+        "display_order": 0,
+        "hidden": false
+      }
+    ]
   }
 ]

@@ -1,9 +1,1 @@
-[
-  {
-    "id": "chart_3E57utPlesbxQEHuXzmwKf1DQrk",
-    "name": "Revenue",
-    "config": "{\"query\":{\"limit\":500,\"timeDimensions\":[{\"dimension\":\"order.created_at\",\"granularity\":\"month\",\"dateRange\":\"this year\"}],\"measures\":[\"order.total_sum\"]},\"settings\":{\"chartType\":\"bar\",\"xField\":\"order_created_at_month\",\"yField\":\"order_total_sum\",\"pivotField\":null,\"xAxis\":{\"title\":\"\",\"type\":\"auto\",\"labelAngle\":0,\"labelLimit\":100,\"labelOverlap\":\"parity\",\"labelAlign\":\"center\",\"showDomain\":true,\"showTicks\":true,\"showLabels\":true,\"tickCount\":null,\"format\":\"\"},\"yAxis\":{\"title\":\"\",\"type\":\"auto\",\"scaleType\":\"linear\",\"showDomain\":true,\"showTicks\":true,\"showLabels\":true,\"tickCount\":null,\"format\":\"\",\"zero\":true},\"legend\":{\"show\":true,\"position\":\"right\"},\"mark\":{\"barWidth\":null,\"lineStrokeWidth\":2,\"pointSize\":50},\"behaviors\":{\"showDataLabels\":false,\"showTooltips\":true,\"showGrid\":false,\"stackingMode\":\"stacked\",\"showBarTotals\":false,\"fillMissingValues\":true,\"showPoints\":true},\"facet\":{\"row\":null,\"column\":null},\"arc\":{\"donut\":true}},\"version\":3}",
-    "createdAt": "2026-05-22T13:33:22.216359Z",
-    "updatedAt": "2026-05-22T13:33:22.216359Z"
-  }
-]
+[]
