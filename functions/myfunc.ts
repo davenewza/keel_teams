@@ -3,10 +3,10 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Myfunc, notify, Team } from '@teamkeel/sdk';
 
-const templateHtml = readFileSync(
-    join(dirname(fileURLToPath(import.meta.url)), 'mytemplate.html'),
-    'utf-8'
-);
+// const templateHtml = readFileSync(
+//     join(dirname(fileURLToPath(import.meta.url)), 'mytemplate.html'),
+//     'utf-8'
+// );
 
 // To learn more about what you can do with custom functions, visit https://docs.keel.so/functions
 export default Myfunc(async (ctx, inputs) => {
@@ -29,7 +29,7 @@ export default Myfunc(async (ctx, inputs) => {
         //recipients: { to: { emails: ["dave.new@keel.xyz", "nobody.here@keel.xyz"] } },
         recipients: { to: { teams: [Team.Accounts] }, cc: { emails: "sanodn@gmail.com" }, bcc: { identities: ctx.identity } },
         subject: "Hello world",
-        content: templateHtml
+        content: "Hello world"
     });
 
     return {};
