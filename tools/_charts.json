@@ -1,9 +1,9 @@
 [
   {
     "id": "chart_3EG6bffgKcYfYB4bPtuCIZXPkj6",
-    "name": "total sales",
-    "config": "{\"query\":{\"limit\":500,\"dimensions\":[],\"measures\":[\"order.total_sum\"]},\"settings\":{\"chartType\":\"kpi\",\"valueField\":\"order_total_sum\",\"label\":\"\",\"format\":\"\",\"sparkline\":null},\"version\":3}",
-    "createdAt": "2026-05-26T10:50:31.098265Z",
-    "updatedAt": "2026-05-26T10:50:31.098265Z"
+    "name": "Stock projection by date by product",
+    "config": "{\"query\":{\"limit\":1000,\"order\":[[\"stock_projection_record.date\",\"asc\"],[\"stock_projection_record.item_name\",\"asc\"]],\"measures\":[\"stock_projection_record.projected_stock_sum\",\"stock_projection_record.opening_stock_sum\",\"stock_projection_record.daily_incoming_sum\",\"stock_projection_record.daily_outgoing_sum\"],\"dimensions\":[\"stock_projection_record.item_name\",\"stock_projection_record.item_sku\"],\"timeDimensions\":[{\"dateRange\":\"next 30 days\",\"dimension\":\"stock_projection_record.date\",\"granularity\":\"day\"}]},\"version\":3,\"settings\":{\"arc\":{\"donut\":true},\"mark\":{\"barWidth\":null,\"pointSize\":50,\"lineStrokeWidth\":2},\"facet\":{\"row\":null,\"column\":null},\"xAxis\":{\"type\":\"auto\",\"title\":\"\",\"format\":\"\",\"showTicks\":true,\"tickCount\":null,\"labelAlign\":\"center\",\"labelAngle\":0,\"labelLimit\":100,\"showDomain\":true,\"showLabels\":true,\"labelOverlap\":\"parity\"},\"yAxis\":{\"type\":\"auto\",\"zero\":true,\"title\":\"\",\"format\":\"\",\"scaleType\":\"linear\",\"showTicks\":true,\"tickCount\":null,\"showDomain\":true,\"showLabels\":true},\"legend\":{\"show\":true,\"position\":\"right\"},\"xField\":\"stock_projection_record_date_day\",\"yField\":\"stock_projection_record_projected_stock_sum\",\"behaviors\":{\"showGrid\":false,\"showPoints\":true,\"showTooltips\":true,\"stackingMode\":\"stacked\",\"showBarTotals\":false,\"showDataLabels\":false,\"fillMissingValues\":true},\"chartType\":\"line\",\"pivotField\":\"stock_projection_record_item_name\"}}",
+    "createdAt": "2026-06-23T10:50:31.098265Z",
+    "updatedAt": "2026-06-23T10:50:31.098265Z"
   }
 ]

@@ -40,7 +40,9 @@ model Order {
     }
 
     actions {
-        write myfunc(Thing1) returns (Thing2)
+        write myfunc(Thing1) returns (Thing2) {
+            @permission(expression: ctx.isAuthenticated)
+        }
         create createOrder() with (orderNumber, items.product.id, items.quantity, items.price) {
             @permission(expression: ctx.isAuthenticated)
             @set(order.processedBy = ctx.identity.user)
@@ -145,7 +147,11 @@ enum OrderStatus {
 }
 
 role Dispatching {}
-role PaymentReceivables {}
+role PaymentReceivables {
+    domains {
+        "keel.xyz"
+    }
+}
 role ProductManagement {}
 role Procurement {}
 

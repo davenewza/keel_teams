@@ -1,8 +1,8 @@
 {
   "name": "keel_teams",
   "dependencies": {
-    "@teamkeel/functions-runtime": "^0.452.1",
-    "@teamkeel/testing-runtime": "^0.452.1",
+    "@teamkeel/functions-runtime": "^0.462.0",
+    "@teamkeel/testing-runtime": "^0.462.0",
     "kysely": "^0.28.14"
   },
   "devDependencies": {
