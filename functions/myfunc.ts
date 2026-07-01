@@ -28,8 +28,15 @@ export default Myfunc(async (ctx, inputs) => {
     await notify.email({
         //recipients: { to: { emails: ["dave.new@keel.xyz", "nobody.here@keel.xyz"] } },
         recipients: { to: { teams: [Team.Accounts] }, cc: { emails: "sanodn@gmail.com" }, bcc: { identities: ctx.identity } },
+
         subject: "Hello world!!",
-        content: "Hello again 4"
+        content: {
+            body: "Hello again 5", actions: [
+                { label: "Go", url: "https://keel.so" },
+                { label: "Somethig else", url: "https://keel.so/help" }
+            ]
+        }
+
     });
 
     return {};
