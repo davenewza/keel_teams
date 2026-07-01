@@ -29,7 +29,7 @@ export default Myfunc(async (ctx, inputs) => {
         //recipients: { to: { emails: ["dave.new@keel.xyz", "nobody.here@keel.xyz"] } },
         recipients: { to: { teams: [Team.Accounts] }, cc: { emails: "sanodn@gmail.com" }, bcc: { identities: ctx.identity } },
         subject: "Hello world!!",
-        content: "Hello again"
+        content: "Hello again 2"
     });
 
     return {};
