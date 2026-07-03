@@ -2,7 +2,6 @@
 import { Myfunc, notify, Team } from '@teamkeel/sdk';
 
 export default Myfunc(async (ctx, inputs) => {
-
     await notify.email({
         recipients: {
             to: {
@@ -19,6 +18,5 @@ export default Myfunc(async (ctx, inputs) => {
             ]
         }
     });
-
     return {};
 });
