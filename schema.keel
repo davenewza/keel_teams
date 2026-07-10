@@ -37,6 +37,7 @@ model Order {
         processedBy User
         items OrderItem[]
         total Decimal @computed(SUM(order.items.total))
+        document File?
     }
 
     actions {
