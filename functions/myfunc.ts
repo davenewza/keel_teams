@@ -93,6 +93,7 @@ export default Myfunc(async (ctx, inputs) => {
                 emails: 'sanodn@gmail.com',
                 identities: ctx.identity,
             },
+
         },
         subject: `New order ${orderNumber}`,
         content: {
@@ -103,6 +104,11 @@ export default Myfunc(async (ctx, inputs) => {
             ],
         },
         attachments: [order.document!, InlineFile.fromDataURL(await order.document!.toDataURL())],
+        replyTo: {
+            teams: [Team.Accounts],
+            emails: 'sanodn@gmail.com',
+            identities: ctx.identity,
+        }
     });
 
     return {};
