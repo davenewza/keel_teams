@@ -14,12 +14,28 @@
           "display_order": 0
         },
         "hidden": false
+      },
+      {
+        "id": "action-reconcile-bank-statement",
+        "link": {
+          "tool_id": "reconcile-bank-statement",
+          "title": "Reconcile bank statement",
+          "display_order": 0
+        },
+        "hidden": false
       }
     ],
     "groups": null,
     "links": null,
     "metrics": null,
-    "topics": null,
+    "topics": [
+      {
+        "id": "topic-pay-account",
+        "topic_name": "PayAccount",
+        "display_order": 0,
+        "hidden": false
+      }
+    ],
     "charts": [
       {
         "id": "chart-attach-chart-3-dz-hk-dla-bs-2-f-pl-dr-lp-8-htl-20-ib-3",
@@ -46,5 +62,28 @@
         "hidden": false
       }
     ]
+  },
+  {
+    "id": "space-asdasd",
+    "name": "asdasd",
+    "icon": "umbrella",
+    "display_order": 0,
+    "hidden": false,
+    "actions": [
+      {
+        "id": "action-create-order-VYi5a",
+        "link": {
+          "tool_id": "create-order",
+          "title": "Create order",
+          "display_order": 0
+        },
+        "hidden": false
+      }
+    ],
+    "groups": null,
+    "links": null,
+    "metrics": null,
+    "topics": null,
+    "charts": null
   }
 ]
