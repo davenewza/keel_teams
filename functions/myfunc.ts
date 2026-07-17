@@ -106,8 +106,13 @@ export default Myfunc(async (ctx, inputs) => {
         attachments: [
             // Attach a model's File
             order.document!,
-            // Make up a document on the spot
-            InlineFile.fromDataURL(await order.document!.toDataURL())
+            // Make up a document on the spot (distinct filename to avoid duplicate)
+            InlineFile.fromDataURL(
+                (await order.document!.toDataURL()).replace(
+                    /;name=[^;]+;/,
+                    `;name=${orderNumber}-copy.txt;`
+                )
+            ),
         ],
         replyTo: {
             emails: 'sanodn@gmail.com',
