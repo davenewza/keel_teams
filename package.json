@@ -3,7 +3,8 @@
   "dependencies": {
     "@teamkeel/functions-runtime": "^0.468.0",
     "@teamkeel/testing-runtime": "^0.468.0",
-    "kysely": "^0.28.14"
+    "kysely": "^0.28.14",
+    "pdf-lib": "^1.17.1"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",

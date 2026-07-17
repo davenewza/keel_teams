@@ -1,4 +1,5 @@
 import { InlineFile, Myfunc, notify, Team, models } from '@teamkeel/sdk';
+import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
 
 function randomInt(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -30,7 +31,7 @@ async function ensureProducts() {
     );
 }
 
-function buildOrderDocument(
+async function buildOrderDocument(
     orderNumber: string,
     items: Array<{ sku: string; title: string; quantity: number; price: number }>
 ) {
@@ -50,11 +51,31 @@ function buildOrderDocument(
         `Total: $${total.toFixed(2)}`,
     ];
 
-    const document = new InlineFile({
-        filename: `${orderNumber}.txt`,
-        contentType: 'text/plain',
+    const pdf = await PDFDocument.create();
+    const page = pdf.addPage();
+    const font = await pdf.embedFont(StandardFonts.Courier);
+    const fontSize = 12;
+    const lineHeight = fontSize * 1.4;
+    const margin = 50;
+    const { height } = page.getSize();
+
+    lines.forEach((line, index) => {
+        page.drawText(line, {
+            x: margin,
+            y: height - margin - index * lineHeight,
+            size: fontSize,
+            font,
+            color: rgb(0, 0, 0),
+        });
     });
-    document.write(Buffer.from(lines.join('\n'), 'utf8'));
+
+    const pdfBytes = await pdf.save();
+
+    const document = new InlineFile({
+        filename: `${orderNumber}.pdf`,
+        contentType: 'application/pdf',
+    });
+    document.write(Buffer.from(pdfBytes));
     return document;
 }
 
@@ -69,7 +90,7 @@ export default Myfunc(async (ctx, inputs) => {
         price: product.price,
     }));
 
-    const document = buildOrderDocument(
+    const document = await buildOrderDocument(
         orderNumber,
         selectedProducts.map((product, index) => ({
             sku: product.sku,
@@ -108,10 +129,7 @@ export default Myfunc(async (ctx, inputs) => {
             order.document!,
             // Make up a document on the spot (distinct filename to avoid duplicate)
             InlineFile.fromDataURL(
-                (await order.document!.toDataURL()).replace(
-                    /;name=[^;]+;/,
-                    `;name=${orderNumber}-copy.txt;`
-                )
+                await order.document!.toDataURL()
             ),
         ],
         replyTo: {
