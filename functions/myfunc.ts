@@ -79,6 +79,7 @@ export default Myfunc(async (ctx, inputs) => {
         }))
     );
 
+
     const order = await models.order.create({
         orderNumber,
         processedById: ctx.identity!.userId!,
@@ -93,7 +94,6 @@ export default Myfunc(async (ctx, inputs) => {
                 emails: 'sanodn@gmail.com',
                 identities: ctx.identity,
             },
-
         },
         subject: `New order ${orderNumber}`,
         content: {
@@ -103,11 +103,14 @@ export default Myfunc(async (ctx, inputs) => {
                 { label: 'View docs', url: 'https://keel.so/docs' },
             ],
         },
-        attachments: [order.document!, InlineFile.fromDataURL(await order.document!.toDataURL())],
+        attachments: [
+            // Attach a model's File
+            order.document!,
+            // Make up a document on the spot
+            InlineFile.fromDataURL(await order.document!.toDataURL())
+        ],
         replyTo: {
-            teams: [Team.Accounts],
             emails: 'sanodn@gmail.com',
-            identities: ctx.identity,
         }
     });
 

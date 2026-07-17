@@ -147,12 +147,16 @@ enum OrderStatus {
     Dispatched
 }
 
-role Dispatching {}
-role PaymentReceivables {
-    domains {
-        "keel.xyz"
-    }
+task PayAccount {
+    @permission(roles: [PaymentReceivables])
 }
+
+flow ReconcileBankStatement {
+    @permission(roles: [PaymentReceivables])
+}
+
+role Dispatching {}
+role PaymentReceivables {}
 role ProductManagement {}
 role Procurement {}
 
@@ -178,4 +182,6 @@ team Management {
     }
 }
 
-team Thing {}
+team Thing {
+
+}
