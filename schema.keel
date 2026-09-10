@@ -204,7 +204,7 @@ model Product {
     }
 
     @permission(
-        expression: true,
+        roles: [ProductManagement],
         actions: [create, list, get, aggregate]
     )
 }
@@ -330,8 +330,8 @@ ledger Stock {
     }
 
     @permission(
-        expression: true,
-        actions: [record, list, aggregate]
+        roles: [PaymentReceivables],
+        actions: [get, record, list, aggregate]
     )
 }
 
