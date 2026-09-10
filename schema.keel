@@ -188,7 +188,8 @@ model Product {
             @permission(expression: ctx.isAuthenticated)
             //@permission(roles: [Dispatching, ProductManagement])
         }
-        aggregate salesByProduct(price?) over (sku) {
+        aggregate salesByProduct(price?) {
+            @dimensions(sku)
             @measures(
                 totalUnits,
                 averageValue
