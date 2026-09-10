@@ -2,9 +2,9 @@
   {
     "id": "dashboard_3EG6QQN0paxBmrcU2nH5cTRyWS2",
     "name": "LOCAL DASH 2",
-    "items": "[{\"id\":\"item-1779792641925-m3x4n23\",\"chartId\":\"chart_3EG6bffgKcYfYB4bPtuCIZXPkj6\",\"layout\":{\"i\":\"item-1779792641925-m3x4n23\",\"x\":0,\"y\":0,\"w\":6,\"h\":4,\"minW\":4,\"minH\":3}}]",
-    "filters": "",
+    "items": "[{\"id\":\"item-1779792641925-m3x4n23\",\"chartId\":\"chart_3EG6bffgKcYfYB4bPtuCIZXPkj6\",\"layout\":{\"i\":\"item-1779792641925-m3x4n23\",\"x\":0,\"y\":0,\"w\":6,\"h\":4,\"minW\":4,\"minH\":3}},{\"id\":\"item-1785310595148-z2br4tq\",\"chartId\":\"chart_3HAUuF5USw2YWmhAtnzuDs2ZYJz\",\"layout\":{\"i\":\"item-1785310595148-z2br4tq\",\"x\":0,\"y\":4,\"w\":6,\"h\":4,\"minW\":4,\"minH\":3}}]",
+    "filters": "[{\"id\":\"f_ms5rua1i7aka\",\"type\":\"boolean\",\"member\":\"order.is_paid\",\"defaultOperator\":\"equals\",\"name\":\"Paid\"}]",
     "createdAt": "2026-05-26T10:49:02.30649Z",
-    "updatedAt": "2026-05-26T10:50:41.938717Z"
+    "updatedAt": "2026-07-29T07:36:50.924864Z"
   }
 ]

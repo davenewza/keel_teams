@@ -1,0 +1,20 @@
+{
+  "id": "get-product",
+  "action_name": "getProduct",
+  "title": "{{$.title}} ",
+  "embedded_tools": [
+    {
+      "id": "purchases",
+      "tools": [
+        {
+          "action_link": {
+            "tool_id": "list-procurement"
+          },
+          "response_overrides": {
+            "$.results[*].productId": false
+          }
+        }
+      ]
+    }
+  ]
+}

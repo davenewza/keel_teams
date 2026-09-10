@@ -2,7 +2,6 @@ extend model User {
     fields {
         employeeCode Text? @unique
         isAdmin Boolean? @default(false)
-
     }
 
     actions {
@@ -22,29 +21,79 @@ extend model User {
     )
 }
 
-message Thing1 {
+model Customer {
+    fields {
+        name Text?
+        country Country
+        region Text?
+    }
 
+    actions {
+        get getCustomer(id)
+        list listCustomer()
+        create createCustomer() with (name?, country, region?)
+    }
+
+    @permission(
+        expression: true,
+        actions: [get, list, create]
+    )
 }
 
-message Thing2 {
+ledger CustomerAccount {
+    position {
+        customer Customer
+    }
 
+    amounts {
+        amount Decimal
+    }
+
+    fields {
+        reason Text
+    }
+
+    balances {
+        balance @computed(SUM(customerAccount.amount))
+    }
+
+    @permission(
+        expression: true,
+        actions: [get, list, record, aggregate]
+    )
+}
+
+enum Country {
+    ZA
+    UK
+    EU
 }
 
 model Order {
     fields {
         orderNumber Text @unique
+        customer Customer?
         status OrderStatus @default(OrderStatus.New)
         processedBy User
         items OrderItem[]
         total Decimal @computed(SUM(order.items.total))
         document File?
+        isPaid Boolean @default(false)
+    }
+
+    measures {
+        totalValue @computed(SUM(order.total))
     }
 
     actions {
-        write myfunc(Thing1) returns (Thing2) {
-            @permission(expression: ctx.isAuthenticated)
-        }
-        create createOrder() with (orderNumber, items.product.id, items.quantity, items.price) {
+        create createOrder() with (
+            orderNumber,
+            items.product.id,
+            items.quantity,
+            items.price,
+            customer.country,
+            customer.region?,
+        ) {
             @permission(expression: ctx.isAuthenticated)
             @set(order.processedBy = ctx.identity.user)
         }
@@ -63,33 +112,55 @@ model Order {
             @permission(roles: [Dispatching])
         }
         update dispatchOrder(id) {
-            @set(order.status = OrderStatus.Dispatched) 
+            @set(order.status = OrderStatus.Dispatched)
             @permission(roles: [Dispatching])
         }
+        aggregate salesByStatus() over (status) {
+            @measures(totalValue)
+        }
+        aggregate salesByRegion() over (customer.country, customer.region) {
+            @measures(totalValue)
+        }
+        // aggregate salesByProductName() over (items.product.name) {
+        //     @measures(totalValue)
+        // }
     }
-    @permission(expression: ctx.isAuthenticated, actions: [create, list, get])
 
+    @permission(
+        expression: true,
+        actions: [create, list, get, aggregate]
+    )
 }
 
 model OrderItem {
     fields {
+        ledgerEntry StockEntry
         order Order
         product Product
         quantity Number
         price Decimal
         total Decimal @computed(orderItem.quantity * orderItem.price)
+        beenAllocated Boolean @computed(orderItem.ledgerEntry.units != orderItem.quantity)
     }
+
     actions {
         list listOrderItems(order.id) {
             @permission(roles: [Dispatching, ProductManagement])
         }
     }
-    @permission(expression: ctx.isAuthenticated, actions: [create, list, get])
 
+    @permission(
+        expression: true,
+        actions: [create, list, get]
+    )
 }
 
 model Product {
     fields {
+        totalStockBalance TotalStockBalance // example when there is only one position and therefore a 1:1 relationship
+        stockBalance StockBalance[]
+        //totalStockBalanceStock Number @computed(product.totalStockBalance.available)
+        //   actualStock Number @computed(SUM(product.stockBalance.available))
         sku Text @unique
         title Text
         price Decimal
@@ -98,11 +169,18 @@ model Product {
         stockAvailable Number @computed(product.stockIn - product.stockOut)
         sales OrderItem[]
         purchases Procurement[]
+        totalUnitsSold Number @computed(SUM(product.sales.quantity))
+        totalValueSold Decimal @computed(SUM(product.sales.total))
     }
+
+    measures {
+        totalUnits @computed(SUM(product.totalUnitsSold))
+        averageValue @computed(SUM(product.totalValueSold) / SUM(product.totalUnitsSold))
+    }
+
     actions {
-        create createProduct() with (sku, title, price){
+        create createProduct() with (sku, title, price) {
             @permission(roles: [ProductManagement])
-            
         }
         get getProduct(id) {
             @permission(expression: ctx.isAuthenticated)
@@ -110,11 +188,26 @@ model Product {
         }
         list listProducts() {
             @permission(expression: ctx.isAuthenticated)
-            @permission(roles: [Dispatching, ProductManagement])
+            //@permission(roles: [Dispatching, ProductManagement])
+        }
+        aggregate salesByProduct(price?) over (sku) {
+            @measures(
+                totalUnits,
+                averageValue
+            )
+            // @dimensions(
+            //     sku,
+            //     title
+            // )
+            //@orderBy(totalUnits: asc) //,
+            //sku: asc
         }
     }
 
-    @permission(expression: ctx.isAuthenticated, actions: [create, list, get])
+    @permission(
+        expression: true,
+        actions: [create, list, get, aggregate]
+    )
 }
 
 model Procurement {
@@ -131,7 +224,10 @@ model Procurement {
         update updateProcurementStatus(id) with (status)
     }
 
-    @permission(roles: [Procurement], actions: [create, get, list, update])
+    @permission(
+        roles: [Procurement],
+        actions: [create, get, list, update]
+    )
 }
 
 enum ProcurementStatus {
@@ -155,10 +251,17 @@ flow ReconcileBankStatement {
     @permission(roles: [PaymentReceivables])
 }
 
-role Dispatching {}
-role PaymentReceivables {}
-role ProductManagement {}
-role Procurement {}
+role Dispatching {
+}
+
+role PaymentReceivables {
+}
+
+role ProductManagement {
+}
+
+role Procurement {
+}
 
 team Accounts {
     roles {
@@ -183,5 +286,81 @@ team Management {
 }
 
 team Thing {
+}
 
+ledger Stock {
+    position {
+        product Product
+        location Loc
+    }
+
+    amounts {
+        units Number @strict(
+            product,
+            stock.reason == "Transfer"
+        )
+    }
+
+    fields {
+        reason Text
+        order OrderItem? @unique
+    }
+
+    balances {
+        onHand @computed(SUM(stock.units))
+        // allocated @computed(SUMIF(stock.units, stock.reason == "Picked"))
+        // available @computed(stock.onHand - stock.allocated)
+    }
+
+    measures {
+        movements @computed(COUNT())
+        total @computed(SUM(stock.units))
+        picked @computed(SUMIF(stock.units, stock.reason == "Picked"))
+        averageMovement @computed(AVG(stock.units))
+        // Reaches the item the entry is positioned on: a per-entry calculation, aggregated.
+        valueMoved @computed(SUM(stock.units * stock.product.price))
+    }
+
+    actions {
+        aggregate stockByItem(product.id?) over (product) {
+            @measures(total)
+        }
+        // aggregate stockBalances(product.id?, location?) {
+        //     @measures(onHand)
+        // }
+    }
+
+    @permission(
+        expression: true,
+        actions: [record, list, aggregate]
+    )
+}
+
+ledger TotalStock {
+    position {
+        product Product
+    }
+
+    amounts {
+        units Number
+    }
+
+    fields {
+        reason Text
+        order OrderItem?
+    }
+
+    balances {
+        available @computed(SUM(totalStock.units))
+    }
+
+    @permission(
+        expression: true,
+        actions: [record]
+    )
+}
+
+enum Loc {
+    Receiving
+    Available
 }
