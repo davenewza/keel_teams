@@ -134,13 +134,13 @@ model Order {
 
 model OrderItem {
     fields {
-        ledgerEntry StockEntry
+        ledgerEntry StockEntry?
         order Order
         product Product
         quantity Number
         price Decimal
         total Decimal @computed(orderItem.quantity * orderItem.price)
-        beenAllocated Boolean @computed(orderItem.ledgerEntry.units != orderItem.quantity)
+        beenAllocated Boolean? @computed(orderItem.ledgerEntry.units != orderItem.quantity)
     }
 
     actions {
@@ -157,10 +157,8 @@ model OrderItem {
 
 model Product {
     fields {
-        totalStockBalance TotalStockBalance // example when there is only one position and therefore a 1:1 relationship
         stockBalance StockBalance[]
-        //totalStockBalanceStock Number @computed(product.totalStockBalance.available)
-        //   actualStock Number @computed(SUM(product.stockBalance.available))
+        actualStock Number @computed(SUM(product.stockBalance.onHand))
         sku Text @unique
         title Text
         price Decimal
@@ -303,7 +301,7 @@ ledger Stock {
 
     fields {
         reason Text
-        order OrderItem? @unique
+        order OrderItem?
     }
 
     balances {
@@ -333,30 +331,6 @@ ledger Stock {
     @permission(
         expression: true,
         actions: [record, list, aggregate]
-    )
-}
-
-ledger TotalStock {
-    position {
-        product Product
-    }
-
-    amounts {
-        units Number
-    }
-
-    fields {
-        reason Text
-        order OrderItem?
-    }
-
-    balances {
-        available @computed(SUM(totalStock.units))
-    }
-
-    @permission(
-        expression: true,
-        actions: [record]
     )
 }
 
