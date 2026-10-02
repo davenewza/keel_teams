@@ -115,19 +115,18 @@ model Order {
             @set(order.status = OrderStatus.Dispatched)
             @permission(roles: [Dispatching])
         }
-        aggregate salesByStatus() over (status) {
+
+        aggregate salesByRegion() over ([customer.country, customer.region], status) {
             @measures(totalValue)
         }
-        aggregate salesByRegion() over (customer.country, customer.region) {
+
+        aggregate salesByDay() over (BUCKET(createdAt, day), customer.country) {
             @measures(totalValue)
         }
-        // aggregate salesByProductName() over (items.product.name) {
-        //     @measures(totalValue)
-        // }
     }
 
     @permission(
-        expression: true,
+        roles: [Dispatching, ProductManagement],
         actions: [create, list, get, aggregate]
     )
 }
@@ -140,7 +139,9 @@ model OrderItem {
         quantity Number
         price Decimal
         total Decimal @computed(orderItem.quantity * orderItem.price)
-        beenAllocated Boolean? @computed(orderItem.ledgerEntry.units != orderItem.quantity)
+        beenAllocated Boolean? @computed(
+            orderItem.ledgerEntry.units != orderItem.quantity
+        )
     }
 
     actions {
@@ -162,7 +163,11 @@ model Product {
         sku Text @unique
         title Text
         price Decimal
-        stockIn Number @computed(SUMIF(product.purchases.quantity, product.purchases.status == ProcurementStatus.Received))
+        stockIn Number @computed(
+            SUMIF(product.purchases.quantity,
+                product.purchases.status == ProcurementStatus.Received
+            )
+        )
         stockOut Number @computed(SUM(product.sales.quantity))
         stockAvailable Number @computed(product.stockIn - product.stockOut)
         sales OrderItem[]
@@ -172,8 +177,10 @@ model Product {
     }
 
     measures {
-        totalUnits @computed(SUM(product.totalUnitsSold))
-        averageValue @computed(SUM(product.totalValueSold) / SUM(product.totalUnitsSold))
+        totalUnits @computed(SUM(product.sales.quantity))
+        averageValue @computed(
+            SUM(product.totalValueSold) / SUM(product.totalUnitsSold)
+        )
     }
 
     actions {
@@ -186,10 +193,10 @@ model Product {
         }
         list listProducts() {
             @permission(expression: ctx.isAuthenticated)
-            //@permission(roles: [Dispatching, ProductManagement])
+            @permission(roles: [Dispatching, ProductManagement])
         }
-        aggregate salesByProduct(price?) {
-            @dimensions(sku)
+        aggregate salesByProduct(price?) over (sku) {
+            //@dimensions(sku)
             @measures(
                 totalUnits,
                 averageValue
@@ -307,30 +314,24 @@ ledger Stock {
 
     balances {
         onHand @computed(SUM(stock.units))
-        // allocated @computed(SUMIF(stock.units, stock.reason == "Picked"))
-        // available @computed(stock.onHand - stock.allocated)
     }
 
     measures {
         movements @computed(COUNT())
         total @computed(SUM(stock.units))
-        picked @computed(SUMIF(stock.units, stock.reason == "Picked"))
-        averageMovement @computed(AVG(stock.units))
-        // Reaches the item the entry is positioned on: a per-entry calculation, aggregated.
-        valueMoved @computed(SUM(stock.units * stock.product.price))
+        // picked @computed(SUMIF(stock.units, stock.reason == "Picked"))
+        // averageMovement @computed(AVG(stock.units))
+        // valueMoved @computed(SUM(stock.units * stock.product.price))
     }
 
     actions {
-        aggregate stockByItem(product.id?) over (product) {
+        aggregate stockByItem(product.id?) over (location, product) {
             @measures(total)
         }
-        // aggregate stockBalances(product.id?, location?) {
-        //     @measures(onHand)
-        // }
     }
 
     @permission(
-        roles: [PaymentReceivables],
+        expression: true,
         actions: [get, record, list, aggregate]
     )
 }
