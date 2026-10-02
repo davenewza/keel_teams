@@ -125,6 +125,8 @@ model Order {
         }
     }
 
+    @on([update], sendOrderNotification)
+
     @permission(
         roles: [Dispatching, ProductManagement],
         actions: [create, list, get, aggregate]
