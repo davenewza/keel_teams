@@ -16,6 +16,9 @@ export default SignatureTest(config, async (ctx) => {
 	const pngDataURL = await page1.agreement.toPngDataURL();
 	const inlineFile = InlineFile.fromDataURL(pngDataURL);
 
+	console.log("pngDataURL", pngDataURL);
+	console.log("inlineFile", inlineFile);
+
 	return {
 		agreement: page1.agreement,
 		pngDataURL,
