@@ -342,3 +342,7 @@ enum Loc {
     Receiving
     Available
 }
+
+flow SignatureTest {
+    @permission(expression: true)
+}
